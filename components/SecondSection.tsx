@@ -3,10 +3,9 @@ import React from "react";
 export function SecondSection() {
   return (
     <>
-      <div className=" w-full h-[88vh] bg-blue-400 rounded-t-3xl flex overflow-hidden">
+      <div className=" relative z-10 w-full h-[88vh] bg-blue-900 rounded-t-3xl flex overflow-hidden">
         <div className=" w-[40%] h-full flex flex-col items-start justify-center px-10">
-          {/* <h1>Make your app social with 5 lines of code</h1> */}
-          <h2 className=" font-display text-[50px] leading-none ginto-md">
+          <h2 className=" font-display text-[50px] leading-none ginto-md text-blue-200">
             Make your app stream G$ with just 5 lines of code
           </h2>
           <p className=" text-2xl mt-10">
