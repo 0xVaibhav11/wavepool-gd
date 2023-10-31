@@ -47,6 +47,7 @@ export async function createNewFlow(
           "CreateFlow"
         );
         console.log(data);
+        alert("Congratulation your flow is Created");
         return result;
       } catch (error) {
         return error;
@@ -134,6 +135,7 @@ export async function deleteExistingFlow(recipient: string, remark: string) {
         "DeleteFlow"
       );
       console.log(data);
+      alert("Congratulation your flow is Deleted");
       return result;
     }
   } catch (error) {
@@ -186,6 +188,7 @@ export async function UpdateFlow(
         remark,
         "UpdateFlow"
       );
+      alert("Congratulation your flow is updated");
       console.log(data);
       return result;
     }
