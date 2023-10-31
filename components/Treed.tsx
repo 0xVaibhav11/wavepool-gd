@@ -7,6 +7,11 @@ import React, { useRef, useEffect, useState, memo } from "react";
 //   );
 // }
 
+{
+  /* <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.490/build/spline-viewer.js"></script>
+<spline-viewer url="https://prod.spline.design/bmRAIQO71E7fzHFX/scene.splinecode"></spline-viewer> */
+}
+
 interface SplineViewerProps {
   url?: string;
   eventsTarget: "global" | "local";
@@ -15,7 +20,7 @@ interface SplineViewerProps {
 const SplineViewer: React.FC<SplineViewerProps> = ({ url, eventsTarget }) => {
   const viewerRef = useRef<HTMLDivElement | null>(null);
   const defaultUrl =
-    "https://prod.spline.design/LgYxjBYA3hz0em38/scene.splinecode";
+    "https://prod.spline.design/bmRAIQO71E7fzHFX/scene.splinecode";
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -26,7 +31,8 @@ const SplineViewer: React.FC<SplineViewerProps> = ({ url, eventsTarget }) => {
     const script = document.createElement("script");
     script.type = "module";
     script.defer = true;
-    script.src = "https://unpkg.com/@splinetool/viewer/build/spline-viewer.js";
+    script.src =
+      "https://unpkg.com/@splinetool/viewer@0.9.490/build/spline-viewer.js";
     script.onload = () => {
       if (viewerRef.current?.children.length === 0 && isMounted) {
         const viewer = document.createElement("spline-viewer");

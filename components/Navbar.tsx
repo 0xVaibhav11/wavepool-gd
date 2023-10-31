@@ -5,12 +5,12 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <div className=" absolute top-4 w-full h-[8vh] flex items-center justify-center z-50">
-      <div className=" w-[60%] h-full bg-blue-900 rounded-full flex items-center justify-between px-2">
+      <div className=" w-[60%] h-full bg-zinc-900 rounded-xl flex items-center justify-between px-2">
         {/* logo------ */}
         <div className=" w-fit flex items-center gap-1">
           <div className=" relative w-12 h-12">
             <Image
-              src={"/images/sun.png"}
+              src={"/images/goodspace.png"}
               alt="logo"
               width={48}
               height={48}
@@ -18,8 +18,8 @@ export default function Navbar() {
             />
           </div>
           <div className=" font-display text-blue-200 leading-none text-xl flex flex-col items-start justify-center">
-            <p>GoodDay</p>
-            <p>Stream</p>
+            <p>Good</p>
+            <p>Space</p>
           </div>
         </div>
         {/* logo--------- */}
