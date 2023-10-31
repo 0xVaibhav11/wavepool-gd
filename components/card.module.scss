@@ -1,0 +1,30 @@
+.diva {
+  padding: 20px;
+
+  position: relative;
+  height: 36rem;
+  .divb {
+    content: "";
+    position: absolute;
+    border-radius: 16px;
+    bottom: 205px;
+
+    right: 24px;
+  }
+  .divc {
+    content: "";
+    position: absolute;
+    border-radius: 16px;
+    bottom: 10px;
+
+    left: 24px;
+  }
+}
+.main {
+  position: relative;
+  // overflow: hidden;
+  top: 40%;
+  max-height: 100vh;
+  width: 40vh;
+  background-color: red;
+}

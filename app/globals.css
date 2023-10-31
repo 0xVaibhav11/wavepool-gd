@@ -77,3 +77,83 @@
 .ginto-md {
   font-family: var(--ginto-md);
 }
+
+
+
+.parallex {
+    transition: 0.2s cubic-bezier(0.2, 0.42, 0.32, 0.99);
+}
+
+.face {
+    transition: 0.2s cubic-bezier(0.2, 0.42, 0.32, 0.99);
+
+}
+
+@media only screen and (max-width:700px) {
+
+    .hide {
+        display: none;
+    }
+
+}
+
+@media only screen and (max-width:1130px) {
+    .bgs {
+        height: 100vh;
+    }
+}
+
+@media only screen and (max-width:500px) {
+    .parallex {
+
+        animation-duration: 6s;
+        animation-iteration-count: infinite;
+        animation-name: floatingNegative;
+        animation-timing-function: ease-in-out;
+        transition: 0.2s cubic-bezier(0.2, 0.42, 0.32, 0.99);
+
+    }
+
+    .hide .responsive{
+        animation-duration: 6s;
+        animation-iteration-count: infinite;
+        animation-name: floatingPostive;
+        animation-timing-function: ease-in-out;
+        transition: 0.2s cubic-bezier(0.2, 0.42, 0.32, 0.99);
+    }
+}
+
+@keyframes floatingNegative {
+
+    0% {
+        -webkit-transform: translate(0);
+        transform: translate(0);
+    }
+
+    50% {
+        -webkit-transform: translateY(calc(100% - 70% )) translateX(calc(100% - 90%)) ;
+        transform: rotate(20deg) translateY(calc(100% - 70%)) translateX(calc(100% - 90%));
+    }
+
+    100% {
+        -webkit-transform: translate(0);
+        transform: translate(0);
+    }
+}
+@keyframes floatingPostive {
+
+    0% {
+        -webkit-transform: translate(0);
+        transform: translate(0);
+    }
+
+    50% {
+        -webkit-transform: translateY(calc(100% - 70% )) translateX(calc(100% - 95%)) ;
+        transform: rotate(20deg) translateY(calc(100% - 70%)) translateX(calc(100% - 95%));
+    }
+
+    100% {
+        -webkit-transform: translate(0);
+        transform: translate(0);
+    }
+}

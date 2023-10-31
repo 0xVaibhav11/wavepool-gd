@@ -30,13 +30,15 @@ export default function Navbar() {
         </div>
         {/* navlinks--------- */}
         {/* CTA------ */}
-        <Button
-          className=" text-sm rounded-full bg-white text-blue-950 ginto-md"
-          size="lg"
-          variant="solid"
-        >
-          DEVELOPER DOCS
-        </Button>
+        <Link href="https://wavepool-gd.gitbook.io/good-days/">
+          <Button
+            className=" text-sm rounded-full bg-white text-blue-950 ginto-md"
+            size="lg"
+            variant="solid"
+          >
+            DEVELOPER DOCS
+          </Button>
+        </Link>
         {/* CTA--------- */}
       </div>
     </div>
