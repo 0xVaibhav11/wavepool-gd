@@ -6,8 +6,8 @@ import { SplineViewer } from "./Treed";
 export function Header() {
   return (
     <div className=" w-full min-h-screen">
-      <header className=" relative w-full h-[80vh] px-20 pb-8 flex items-end justify-center bg-black">
-        <div className=" absolute top-0 right-0 self-end w-[85vw] h-full z-0 opacity-80 overflow-hidden">
+      <header className=" relative w-full h-[80vh] px-20 pb-8 flex items-center justify-start bg-black">
+        <div className=" absolute top-0 right-0 self-end w-full h-full z-0 opacity-80 overflow-hidden">
           {/* <Image
             src={"/images/sunny.webp"}
             alt="bg"
@@ -19,9 +19,11 @@ export function Header() {
             eventsTarget="global"
           />
         </div>
-        {/* <h1 className=" relative text-9xl font-display leading-none tracking-tighter z-10 text-blue-200">
-          Build and Intigrate with GoodDay
-        </h1> */}
+        <div className=" w-[40vw]">
+          <h1 className=" relative text-7xl font-display leading-none tracking-tighter z-10 text-blue-200">
+            Pay and Intigrate with Good Space
+          </h1>
+        </div>
       </header>
       <SecondSection />
     </div>

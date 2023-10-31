@@ -9,7 +9,7 @@ import React, { useRef, useEffect, useState, memo } from "react";
 
 {
   /* <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.490/build/spline-viewer.js"></script>
-<spline-viewer url="https://prod.spline.design/bmRAIQO71E7fzHFX/scene.splinecode"></spline-viewer> */
+<spline-viewer loading-anim url="https://prod.spline.design/bmRAIQO71E7fzHFX/scene.splinecode"></spline-viewer> */
 }
 
 interface SplineViewerProps {
@@ -38,6 +38,7 @@ const SplineViewer: React.FC<SplineViewerProps> = ({ url, eventsTarget }) => {
         const viewer = document.createElement("spline-viewer");
         viewer.setAttribute("url", url || defaultUrl);
         viewer.setAttribute("events-target", eventsTarget);
+        viewer.setAttribute("loading-anim", "true");
         viewerRef.current.appendChild(viewer);
 
         viewerRef.current.children[0].shadowRoot
