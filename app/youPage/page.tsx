@@ -24,6 +24,7 @@ import {
 function Yourpage() {
   const [FlowRate, setFlowRate] = useState("0");
   const Address = useRef("");
+  const Remark = useRef("");
   function calculateFlowRate(amountInEther: string) {
     if (amountInEther != "") {
       if (
@@ -77,7 +78,16 @@ function Yourpage() {
                   }}
                 />
               </div>
-
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="name">Enter Remark</Label>
+                <Input
+                  id="name"
+                  placeholder="ex This month Payment"
+                  onChange={(e) => {
+                    Remark.current = e.target.value;
+                  }}
+                />
+              </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="name">Flow Rate per month</Label>
                 <Input
