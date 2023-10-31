@@ -1,2 +1,2 @@
-export const chainid = '80001';
-export const tokenaddress = '';
+export const chainid = "42220";
+export const tokenaddress = "";

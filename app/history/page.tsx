@@ -71,14 +71,10 @@ function DataRow() {
           <Button onClick={handleSearch}>Search</Button>
         </div>
       </div>
-      <div
-        style={{
-          maxWidth: "800px",
-        }}
-      >
+      <div>
         {" "}
         {data &&
-          data.map((item: any, index) => {
+          data.map((item: any, index: number) => {
             return (
               <div
                 id="row"
@@ -92,6 +88,7 @@ function DataRow() {
 
                     <p className="">{item.data.time}</p>
                   </div>
+                  <p>{item.data.method}</p>
                 </div>
                 <div id="userColumn" className=" flex gap-2 items-center">
                   <div className=" text-xl text-muted-foreground">

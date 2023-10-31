@@ -1,3 +1,4 @@
+"use client";
 import { ethers } from "ethers";
 
 export const connectToMetaMask = async () => {
@@ -38,7 +39,7 @@ export async function changeEthereumChain() {
     if (typeof window.ethereum !== "undefined") {
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x13881" }],
+        params: [{ chainId: "0xa4ec" }],
       });
     } else {
       console.error("MetaMask is not installed or not accessible.");

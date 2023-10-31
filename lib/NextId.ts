@@ -1,3 +1,4 @@
+"use client";
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { GET_NEXTID_INFO } from "@/graphql/queries";
 
@@ -11,7 +12,7 @@ const client = new ApolloClient({
 
 export async function getGraph(platform: string, identity: string) {
   const error = ["there is some error"];
-  // console.log(platform, identity);
+  console.log(platform, identity);
   try {
     const response = await client.query({
       query: GET_NEXTID_INFO,
@@ -27,13 +28,12 @@ export async function getGraph(platform: string, identity: string) {
       // console.log(data.identity.neighbor);
       for (let i = 0; i < id.length; i++) {
         if (id[i].identity.platform === "ethereum") {
-          // console.log(id[i].identity.identity);
+          console.log(id[i].identity.identity);
 
           return id[i].identity.identity;
         }
       }
     }
-    return error;
   } catch (e) {
     return e;
     // console.log(e);

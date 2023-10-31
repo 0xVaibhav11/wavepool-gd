@@ -45,29 +45,18 @@ type Account = {
 const GooDay = () => {
   //  states of function
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [AccountInfo, setAccountInfo] = useState<Account>();
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [PayAdd, setPayAdd] = useState("");
   const [updateFlag, setUpadateFlag] = useState(false);
   const [flowR, setFlowR] = useState("");
+
   const [flowRateFlag, setFlowRateFlag] = useState(false);
   // input variables
   const reciverId = useRef("");
-  const FlowRate = useRef("");
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.target.value;
-    setSelectedOption(selectedValue);
-  };
+  const remark = useRef("");
+  const [FlowRate, setFlowRate] = useState("");
 
   const handleConnect = async () => {
     const network = await CheckChain();
@@ -85,39 +74,48 @@ const GooDay = () => {
     try {
       if (reciverId.current == "") {
         alert("pelase enter revicer address or id ");
+        console.log("RHOW");
         return;
       } else if (selectedOption == "") {
         // console.log(selectedOption);
+        console.log("RHOW");
         alert("please enter  plateform id ");
         return;
-      } else if (FlowRate.current == "") {
+      } else if (FlowRate == "") {
         alert("please Enter flow Rate");
+        console.log("RHOW");
         return;
       } else if (selectedOption == "eao") {
         if (reciverId.current.length != 42) {
           alert("please enter correct address");
+          console.log("RHOW");
         } else {
           setPayAdd(reciverId.current);
           const check: any = await GetFlow(reciverId.current);
-          //       console.log(check.flowRate);
-
+          console.log(check.flowRate);
+          console.log("RHOW");
           setFlowRateFlag(true);
 
           if (check.flowRate === "0") {
             setUpadateFlag(false);
             setFlowRateFlag(true);
+            console.log("RHOW");
             return;
           } else {
             setFlowR(check.flowRate);
             setUpadateFlag(true);
+            console.log("RHOW");
             setFlowRateFlag(true);
           }
         }
       } else {
+        console.log("jsfojo");
         const reciver = await getGraph(selectedOption, reciverId.current);
         setPayAdd(reciver);
+        console.log(reciver);
         const check: any = await GetFlow(reciver);
-        //        console.log(check.flowRate);
+        console.log(reciver);
+        console.log(check);
         if (check.flowRate === "0") {
           setUpadateFlag(false);
           setFlowRateFlag(true);
@@ -129,11 +127,36 @@ const GooDay = () => {
         }
       }
     } catch (e) {
-      //  console.log(e);
+      console.log(e);
       alert("please enter Correct platform and id ");
     }
   };
 
+  function calculateFlowRate(amountInEther: string) {
+    if (amountInEther != "") {
+      if (
+        typeof Number(amountInEther) !== "number" ||
+        isNaN(Number(amountInEther)) === true
+      ) {
+        console.log(typeof Number(amountInEther));
+        alert("You can only calculate a flowRate based on a number");
+        return;
+      } else if (typeof Number(amountInEther) === "number") {
+        const monthlyAmount: any = ethers.utils.parseEther(
+          amountInEther.toString()
+        );
+        const calculatedFlowRate = Math.floor(
+          monthlyAmount / 3600 / 24 / (365 / 12)
+        );
+        console.log(calculatedFlowRate);
+        const valueis: string = String(calculatedFlowRate);
+
+        setFlowRate(valueis);
+      }
+    } else {
+      setFlowRate("0");
+    }
+  }
   return (
     <div
       style={{
@@ -208,14 +231,29 @@ const GooDay = () => {
                   id="name"
                   placeholder="Example 100 G$"
                   onChange={(e) => {
-                    FlowRate.current = e.target.value;
+                    calculateFlowRate(e.target.value);
                     //   console.log(reciverId.current);
                   }}
                 />
+                <Label htmlFor="name">
+                  Flow Rate per second : {FlowRate} in wei
+                </Label>
               </div>
             </div>
           </form>
+          <div className="flex flex-col space-y-1.5 mt-10">
+            <Label htmlFor="name">Please Enter Reamrk</Label>
+            <Input
+              id="name"
+              placeholder="Ex:- Home rent for Octuber"
+              onChange={(e) => {
+                remark.current = e.target.value;
+                //   console.log(reciverId.current);
+              }}
+            />
+          </div>
         </CardContent>
+
         <CardFooter className="flex justify-between">
           {!flowRateFlag ? (
             <Button
@@ -229,40 +267,42 @@ const GooDay = () => {
           ) : (
             <>
               {!updateFlag ? (
-                <>
-                  <div>You don't have any running stream please create one</div>
+                <div>
+                  <div>You dont have any running stream please create one</div>
                   <Button
                     className="track"
                     onClick={() => {
-                      createNewFlow(PayAdd, FlowRate.current);
+                      createNewFlow(PayAdd, FlowRate, remark.current);
                     }}
                     type="button"
                   >
                     Create New Flow
                   </Button>
-                </>
-              ) : (
-                <div style={{ display: "flex" }}>
-                  <div>You already have a flow of flowRate : {flowR}</div>
-                  <Button
-                    className="track"
-                    onClick={() => {
-                      deleteExistingFlow(PayAdd);
-                    }}
-                    type="button"
-                  >
-                    Delete FLow
-                  </Button>
-                  <Button
-                    className="track"
-                    onClick={() => {
-                      UpdateFlow(PayAdd, FlowRate.current);
-                    }}
-                    type="button"
-                  >
-                    Update Flow
-                  </Button>
                 </div>
+              ) : (
+                <>
+                  <div style={{ display: "flex" }}>
+                    <div>You already have a flow of flowRate : {flowR}</div>
+                    <Button
+                      className="track"
+                      onClick={() => {
+                        deleteExistingFlow(PayAdd, remark.current);
+                      }}
+                      type="button"
+                    >
+                      Delete FLow
+                    </Button>
+                    <Button
+                      className="track"
+                      onClick={() => {
+                        UpdateFlow(PayAdd, FlowRate, remark.current);
+                      }}
+                      type="button"
+                    >
+                      Update Flow
+                    </Button>
+                  </div>
+                </>
               )}
             </>
           )}

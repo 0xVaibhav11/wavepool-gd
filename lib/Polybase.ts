@@ -14,7 +14,8 @@ export async function createRecord(
   txhash: string,
   time: string,
   flowrate: string,
-  remark: string
+  remark: string,
+  method: string
 ) {
   // .create(args) args array is defined by the constructor fn
   const recordData = await collectionReference.create([
@@ -25,6 +26,7 @@ export async function createRecord(
     time,
     flowrate,
     remark,
+    method,
   ]);
   return recordData;
 }
