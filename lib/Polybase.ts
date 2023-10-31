@@ -37,29 +37,28 @@ export async function getRecordBySender(sender: string) {
   console.log(data);
   console.log(cursor);
 }
-export async function getRecordByReciver(reciver: string) {
-  const records = await collectionReference
-    .where("receiver", "==", reciver)
-    .get();
+export async function getRecord(option: string, value: string) {
+  const records = await collectionReference.where(option, "==", value).get();
 
   // Array of records is available under the data property
   const { data, cursor } = records;
+  return data;
   console.log(data);
   console.log(cursor);
 }
-export async function getRecordByRemark(remark: string) {
-  const records = await collectionReference.where("remark", "==", remark).get();
+// export async function getRecordByRemark(remark: string) {
+//   const records = await collectionReference.where("remark", "==", remark).get();
 
-  // Array of records is available under the data property
-  const { data, cursor } = records;
-  console.log(data);
-  console.log(cursor);
-}
-export async function getRecordByTxhash(txhash: string) {
-  const records = await collectionReference.where("txhash", "==", txhash).get();
+//   // Array of records is available under the data property
+//   const { data, cursor } = records;
+//   console.log(data);
+//   console.log(cursor);
+// }
+// export async function getRecordByTxhash(txhash: string) {
+//   const records = await collectionReference.where("txhash", "==", txhash).get();
 
-  // Array of records is available under the data property
-  const { data, cursor } = records;
-  console.log(data);
-  console.log(cursor);
-}
+//   // Array of records is available under the data property
+//   const { data, cursor } = records;
+//   console.log(data);
+//   console.log(cursor);
+// }
