@@ -35,6 +35,7 @@ function DataRow() {
           display: "flex",
           justifyContent: "center",
           margin: "20px",
+          marginTop: "10vh",
           gap: "20px",
         }}
       >

@@ -40,7 +40,7 @@ function Yourpage() {
   }, [to, amount, title, desc]);
 
   return (
-    <main className=" w-full h-[100vh] flex justify-center items-center bg-black">
+    <main className=" w-full h-[100vh] mt-[10vh] flex justify-center items-center bg-black">
       <div className=" absolute top-0 right-0 self-end w-full h-full z-0 opacity-20 overflow-hidden">
         {/* <SplineViewer
           url="https://prod.spline.design/AocGsG55P2er9U4m/scene.splinecode"
