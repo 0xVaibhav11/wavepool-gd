@@ -72,7 +72,6 @@ function DataRow() {
         </div>
       </div>
       <div>
-        {" "}
         {data &&
           data.map((item: any, index: number) => {
             return (
@@ -86,7 +85,6 @@ function DataRow() {
                     <HiOutlineSwitchHorizontal />
                     <p>Sender</p>
                     <p className=" text-foreground-900">{item.data.sender}</p>
-
                     <p className="">{item.data.time}</p>
                   </div>
                   <p>{item.data.method}</p>

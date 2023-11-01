@@ -3,6 +3,7 @@ import "./globals.css";
 import Provider from "@/components/Provider";
 import localFont from "next/font/local";
 import { cn } from "@/lib/utils";
+import Navbar from "@/components/Navbar";
 
 const display = localFont({
   src: "../assets/fonts/gintoNord-bold.woff",
@@ -39,7 +40,10 @@ export default function RootLayout({
         className={`${body.variable} ${display.variable} ${gintoMd.variable} font-body antialiased`}
         // className={cn("font-body antialiased", body.variable, display.variable)}
       >
-        <Provider>{children}</Provider>
+        <Provider>
+          <Navbar />
+          {children}
+        </Provider>
       </body>
     </html>
   );

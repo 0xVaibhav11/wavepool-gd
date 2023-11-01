@@ -77,3 +77,25 @@
 .ginto-md {
   font-family: var(--ginto-md);
 }
+
+.logo {
+  rotate: -45deg;
+  animation: levitating 7s infinite ease;
+}
+.logo-sec {
+  rotate: 12deg;
+  animation: levitating 5s infinite ease;
+  animation-delay: 0.5s;
+}
+
+@keyframes levitating {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
