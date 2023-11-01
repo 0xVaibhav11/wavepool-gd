@@ -1,6 +1,11 @@
 "use client";
-import React, { useState, useRef } from "react";
-
+import React, { useState, useRef, useEffect } from "react";
+import { createNewFlow } from "@/lib/Superfluid";
+import {
+  CheckChain,
+  connectToMetaMask,
+  changeEthereumChain,
+} from "@/lib/MetaMask";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,29 +16,48 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ethers } from "ethers";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import Image from "next/image";
+import { chainid } from "@/constant";
 import { useSearchParams } from "next/navigation";
+type Account = {
+  signer: ethers.providers.JsonRpcSigner;
+  providers: ethers.providers.JsonRpcProvider;
+  address: string;
+};
 
 export default function GoodSpace() {
   const searchParams = useSearchParams();
-
+  const [flow, setFlow] = useState("");
   const title = searchParams.get("title");
   const desc = searchParams.get("desc");
+  const [isConnected, setIsConnected] = useState(false);
   const amount = searchParams.get("amount");
   const to = searchParams.get("to");
-
+  const [AccountInfo, setAccountInfo] = useState<Account>();
   const [FlowRate, setFlowRate] = useState("0");
   const Address = useRef("");
   const Remark = useRef("");
+
+  const handleCreate = async () => {
+    if (to != undefined && title != undefined) {
+      const respons = await createNewFlow(to, flow, title);
+    }
+  };
+  const handleConnect = async () => {
+    const network = await CheckChain();
+
+    const user: any = await connectToMetaMask();
+    setAccountInfo(user);
+
+    if (network != chainid) {
+      await changeEthereumChain();
+    }
+    setIsConnected(true);
+    if (amount != undefined) {
+      calculateFlowRate(amount);
+    }
+  };
   function calculateFlowRate(amountInEther: string) {
     if (amountInEther != "") {
       if (
@@ -53,12 +77,19 @@ export default function GoodSpace() {
         console.log(calculatedFlowRate);
         const valueis: string = String(calculatedFlowRate);
 
-        setFlowRate(valueis);
+        setFlow(valueis);
       }
     } else {
       setFlowRate("0");
     }
   }
+
+  useEffect(() => {
+    if (amount != undefined) {
+      console.log("owfeofojwofowejfjwefoji");
+      calculateFlowRate(amount);
+    }
+  }, [amount]);
   return (
     <main className=" w-full h-[100vh] flex justify-center items-center bg-black">
       <div className=" absolute top-0 right-0 self-end w-full h-full z-0 opacity-20 overflow-hidden">
@@ -68,10 +99,10 @@ export default function GoodSpace() {
         /> */}
         <Image src={"/images/stars.jpg"} alt="bg" fill objectFit="cover" />
       </div>
-      <div className="w-full h-[100vh] relative z-0 flex justify-between px-20 items-center">
-        <div className=" w-[45vw] min-h-[60vh] flex flex-col items-start justify-start gap-4">
+      <div className="w-full h-[100vh] relative z-0 flex pt-11 gap-11 flex-col px-20 items-center">
+        <div className=" w-[45vw]  flex flex-col items-start justify-start gap-4">
           <h1 className=" text-blue-300 text-3xl font-display">
-            {title ? title : ""}
+            Remark: {title ? title : ""}
           </h1>
 
           <p>{desc ? desc : " "}</p>
@@ -83,52 +114,30 @@ export default function GoodSpace() {
                 Create G$ Stream Link
               </p>
             </CardTitle>
-            <CardDescription>
-              Make your payment page with one click
-            </CardDescription>
+            <CardDescription>pay with G$ and make socity good</CardDescription>
           </CardHeader>
           <CardContent>
             <form>
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="name">your address</Label>
-                  <Input
-                    id="name"
-                    placeholder="Ex - 0x...."
-                    onChange={(e) => {
-                      Address.current = e.target.value;
-                    }}
-                  />
+                  <Label htmlFor="name"> Remark For this Stream</Label>
+                  {title}
                 </div>
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="name">Enter Remark</Label>
-                  <Input
-                    id="name"
-                    placeholder="ex This month Payment"
-                    onChange={(e) => {
-                      Remark.current = e.target.value;
-                    }}
-                  />
-                </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="name">Flow Rate per month</Label>
-                  <Input
-                    id="name"
-                    placeholder="Example 100 G$"
-                    onChange={(e) => {
-                      calculateFlowRate(e.target.value);
-                      //   console.log(reciverId.current);
-                    }}
-                  />
+                  <Label htmlFor="name">Flow Rate per month {amount} G$</Label>
+
                   <Label htmlFor="name">
-                    Flow Rate per second : {FlowRate} in wei
+                    Flow Rate per second : {flow} in wei
                   </Label>
                 </div>
               </div>
             </form>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button>Copy link</Button>
+            <Button onClick={handleConnect}>
+              {!isConnected ? "Connect" : AccountInfo?.address}
+            </Button>
+            {isConnected && <Button onClick={handleCreate}>Create Flow</Button>}
           </CardFooter>
         </Card>
       </div>
