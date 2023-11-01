@@ -25,9 +25,10 @@ export default function Navbar() {
         {/* logo--------- */}
         {/* navlinks------ */}
         <div className=" flex items-center justify-center gap-6 text-base ginto-md text-blue-200 leading-none">
-          <p>Home</p>
+          <Link href={"/"}>Home</Link>
           <Link href={"/pay"}>Pay</Link>
           <Link href={"/createPro"}>Create-Pay</Link>
+          <Link href={"/history"}>History</Link>
         </div>
         {/* navlinks--------- */}
         {/* CTA------ */}
