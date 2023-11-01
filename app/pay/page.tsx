@@ -188,7 +188,7 @@ const GooDay = () => {
           url="https://prod.spline.design/AocGsG55P2er9U4m/scene.splinecode"
           eventsTarget="global"
         /> */}
-        <Image src={"/images/stars.jpg"} alt="bg" fill objectFit="cover" />
+        <Image src={"/images/stars.jpg"} alt="bg" fill />
       </div>
       <div className="w-full h-[100vh] relative z-10 flex justify-center items-center">
         <Card className="w-[40vw]">
