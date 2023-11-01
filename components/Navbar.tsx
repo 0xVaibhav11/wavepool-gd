@@ -27,6 +27,7 @@ export default function Navbar() {
         <div className=" flex items-center justify-center gap-6 text-base ginto-md text-blue-200 leading-none">
           <p>Home</p>
           <Link href={"/pay"}>Pay</Link>
+          <Link href={"/createPro"}>Create-Pay</Link>
         </div>
         {/* navlinks--------- */}
         {/* CTA------ */}
