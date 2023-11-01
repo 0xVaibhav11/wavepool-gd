@@ -24,8 +24,8 @@ const gintoMd = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "GoodDay Stream",
-  description: "GOODDAY Stream",
+  title: "GoodSpace Stream",
+  description: "GOODSpace Stream",
 };
 
 export default function RootLayout({
