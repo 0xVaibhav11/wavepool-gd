@@ -45,13 +45,13 @@ type Account = {
 // Main function
 const GooDay = () => {
   //  states of function
-
+  const [Succflag, setSuccflag] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [AccountInfo, setAccountInfo] = useState<Account>();
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [PayAdd, setPayAdd] = useState("");
   const [updateFlag, setUpadateFlag] = useState(false);
-  const [flowR, setFlowR] = useState("");
+  const [flowR, setFlowR] = useState("0");
 
   const [flowRateFlag, setFlowRateFlag] = useState(false);
   // input variables
@@ -71,6 +71,16 @@ const GooDay = () => {
     setIsConnected(true);
   };
 
+  const hadnleDelete = async () => {
+    setSuccflag(true);
+    const respons = await deleteExistingFlow(PayAdd, remark.current);
+    setSuccflag(false);
+  };
+  const hadnleUpdate = async () => {
+    setSuccflag(true);
+    const respons = await UpdateFlow(PayAdd, FlowRate, remark.current);
+    setSuccflag(false);
+  };
   useEffect(() => {
     handleConnect();
   }, [isConnected]);
@@ -99,6 +109,7 @@ const GooDay = () => {
           const check: any = await GetFlow(reciverId.current);
           console.log(check.flowRate);
           console.log("RHOW");
+          setSuccflag(false);
           setFlowRateFlag(true);
 
           if (check.flowRate === "0") {
@@ -121,6 +132,7 @@ const GooDay = () => {
         const check: any = await GetFlow(reciver);
         console.log(reciver);
         console.log(check);
+        setSuccflag(false);
         if (check.flowRate === "0") {
           setUpadateFlag(false);
           setFlowRateFlag(true);
@@ -135,6 +147,12 @@ const GooDay = () => {
       console.log(e);
       alert("please enter Correct platform and id ");
     }
+  };
+
+  const handleCreateflow = async () => {
+    setSuccflag(true);
+    const respons = await createNewFlow(PayAdd, FlowRate, remark.current);
+    setSuccflag(false);
   };
 
   function calculateFlowRate(amountInEther: string) {
@@ -278,7 +296,9 @@ const GooDay = () => {
             {!flowRateFlag ? (
               <Button
                 variant="bordered"
+                isLoading={Succflag}
                 onClick={() => {
+                  setSuccflag(true);
                   handleCheck();
                 }}
               >
@@ -293,9 +313,9 @@ const GooDay = () => {
                     </div>
                     <Button
                       className="track"
-                      isLoading={true}
+                      isLoading={Succflag}
                       onClick={() => {
-                        createNewFlow(PayAdd, FlowRate, remark.current);
+                        handleCreateflow();
                       }}
                       type="button"
                     >
@@ -304,12 +324,19 @@ const GooDay = () => {
                   </div>
                 ) : (
                   <>
-                    <div style={{ display: "flex" }}>
-                      <div>You already have a flow of flowRate : {flowR}</div>
+                    <div style={{ display: "flex", gap: "10px" }}>
+                      <div
+                        style={{
+                          paddingTop: "5px",
+                        }}
+                      >
+                        You already have a flow of flowRate : {flowR}
+                      </div>
                       <Button
                         className="track"
+                        isLoading={Succflag}
                         onClick={() => {
-                          deleteExistingFlow(PayAdd, remark.current);
+                          hadnleDelete();
                         }}
                         type="button"
                       >
@@ -317,8 +344,9 @@ const GooDay = () => {
                       </Button>
                       <Button
                         className="track"
+                        isLoading={Succflag}
                         onClick={() => {
-                          UpdateFlow(PayAdd, FlowRate, remark.current);
+                          hadnleUpdate();
                         }}
                         type="button"
                       >
