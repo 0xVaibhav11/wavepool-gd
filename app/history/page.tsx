@@ -77,6 +77,7 @@ function DataRow() {
           data.map((item: any, index: number) => {
             return (
               <div
+                key={index}
                 id="row"
                 className=" w-full h-max p-4 flex justify-between items-center"
               >
